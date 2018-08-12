@@ -8,6 +8,7 @@ const { exec } = require('child_process');
 const config = require('../config');
 const log = console.log;
 
+console.log('asd')
 async function createPage(pageName) {
   log(pageName)
 }

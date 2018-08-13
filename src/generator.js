@@ -9,17 +9,19 @@ const { exec } = require('child_process');
 const createProject = require('./create-proj');
 const createPage = require('./create-page');
 
-const log = console.log;
-
 program
   .version('0.1.0', '-v, --version')
-  .option('-l, --list [list]', 'List of customers in CSV')
-  .option('-i, --init [list]', 'List of customers in CSV');
-  
-program.command('init')
+  // .option('-r, --report [list]', 'List of customers in CSV');
+
+program
+  .command('init')
   .action(createProject);
 
-program.command('add <pageName>')
+program
+  .option('-r, --report', 'Create report page')
+  .option('-f, --form', 'Create form page')
+  .command('add <pageName>')
   .action(createPage)
 
-program.parse(process.argv)
+program.parse(process.argv);
+console.log(program.report)

@@ -43,4 +43,4 @@ async function createProject() {
   storeInfo(answer);
 }
 
-module.exports.default = createProject;
+module.exports = createProject;

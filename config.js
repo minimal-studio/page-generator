@@ -6,8 +6,16 @@ let commandConfig = {
   storeFileName: '_orion-data.js',
 }
 let scaffoldConfig = {
-  reportActionPath: './_template/action-report.tmpl',
-  formActionPath: './_template/action-form.tmpl',
+  tmplPath: {
+    report: {
+      page: './_template/page-report.tmpl',
+      action: './_template/action-report.tmpl',
+    },
+    form: {
+      page: './_template/page-form.tmpl',
+      action: './_template/action-form.tmpl',
+    },
+  },
   menuDataPath: './src/config/generate-nav-config.js',
   pageRefPath: './src/pages/generate-pages-refs.js',
   actionRefPath: './src/actions/generate-actions-refs.js',

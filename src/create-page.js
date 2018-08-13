@@ -9,6 +9,21 @@ const { exec } = require('child_process');
 const {commandConfig, scaffoldConfig} = require('../config');
 const {createPageQues} = require('./question');
 
+const wrapCurrPath = (...targetPath) => {
+  return path.resolve(process.cwd(), ...targetPath);
+}
+
+const getTmpl = (pageType, pageCate) => {
+  let pageTypeTester = /report|form/;
+  let pageCateTester = /page|action/;
+  
+  if(!pageTypeTester.test(pageType)) return console.log('pageType error');
+  if(!pageCateTester.test(pageCate)) return console.log('pageCate error');
+  
+  let tmplPath = scaffoldConfig.tmplPath[pageType][pageCate];
+  return fse.readFileSync(wrapCurrPath(tmplPath), 'utf-8');
+}
+
 const TemplateEngine = (tmpl, data) => {
   let regex = /{%([^%>]+)?%}/g;
   let match;
@@ -18,26 +33,21 @@ const TemplateEngine = (tmpl, data) => {
   return tmpl;
 }
 
-const wrapCurrPath = (...targetPath) => {
-  return path.resolve(process.cwd(), ...targetPath);
-}
-
-const registeAction = (pageName) => {
+const registeActionRef = (pageName) => {
   let filePath = wrapCurrPath(scaffoldConfig.actionRefPath);
   let actionRefFile = fs.readFileSync(filePath, 'utf8');
   actionRefFile += `export * from './${pageName}';\n`;
   fs.writeFileSync(filePath, actionRefFile);
 }
 
-// const registePageRef = (pageName) => {
-//   let filePath = wrapCurrPath(scaffoldConfig.pageRefPath);
-//   let pageRefFile = fs.readFileSync(filePath, 'utf8');
-//   pageRefFile += `export * from './${pageName}';\n`;
-//   fs.writeFileSync(filePath, pageRefFile);
-// }
+const registePageRef = (pageName) => {
+  let filePath = wrapCurrPath(scaffoldConfig.pageRefPath);
+  let pageRefFile = fs.readFileSync(filePath, 'utf8');
+  pageRefFile += `export * from './${pageName}';\n`;
+  fs.writeFileSync(filePath, pageRefFile);
+}
 
 const saveMenuData = ({alias, pageName}) => {
-  // console.log(alias)
   let menuDataFilePath = wrapCurrPath(scaffoldConfig.menuDataPath);
   let menuData = require(menuDataFilePath);
   menuData.child.push({
@@ -47,23 +57,66 @@ const saveMenuData = ({alias, pageName}) => {
   fs.writeFileSync(menuDataFilePath, `module.exports = ${JSON.stringify(menuData)}`)
 }
 
-const genAction = ({tmpl, pageName, storeInfo, alias}) => {
-  let nextPageName = pageName.toLowerCase();
-  nextPageName = [nextPageName[0].toUpperCase(), nextPageName.slice(1)].join('');
+const pageNameFilter = (pageName) => {
+  let pageSlice = pageName.split('-');
+  let nextPageName = '';
 
-  let result = TemplateEngine(tmpl, {
+  pageSlice.forEach(item => nextPageName += [item[0].toUpperCase(), item.slice(1)].join(''))
+
+  return nextPageName;
+}
+
+const genFile = ({targetFilePath, pageName, content, storeInfo, alias}) => {
+  let componentName = pageNameFilter(pageName);
+
+  let contentRes = TemplateEngine(content, {
     comment: scaffoldConfig.wrapComment({...storeInfo, pageName, alias}),
-    pageName: nextPageName
+    pageName: componentName
   });
 
-  let filePath = wrapCurrPath(scaffoldConfig.actionPath, pageName);
-  fs.mkdir(filePath, (err) => {
-    if(err) return console.log(pageName + ' exist');
-    fs.writeFileSync(path.join(filePath, './index.js'), result);
-    registeAction(pageName);
-    // registePageRef(pageName);
+  let targetDirPath = wrapCurrPath(targetFilePath, pageName);
+  try {
+    fs.mkdirSync(targetDirPath);
+  } catch(e) {
+    return console.log(pageName + ' exist');
+  }
+  fs.writeFileSync(path.join(targetDirPath, './index.js'), contentRes);
+
+  return {
+    componentName
+  };
+}
+
+const genAction = ({pageType, pageName, ...other}) => {
+  let actionTmpl = getTmpl(pageType, 'action');
+
+  genFile({
+    targetFilePath: scaffoldConfig.actionPath, 
+    pageName, 
+    content: actionTmpl,
+    ...other
   });
-  return result;
+
+  registeActionRef(pageName);
+}
+
+const genPage = ({pageType, pageName, alias, ...other}) => {
+  let pageTmpl = getTmpl(pageType, 'page');
+
+  let {componentName} = genFile({
+    targetFilePath: scaffoldConfig.pagePath, 
+    pageName, 
+    content: pageTmpl,
+    alias,
+    ...other
+  });
+
+  registePageRef(pageName);
+
+  saveMenuData({
+    alias,
+    pageName: componentName,
+  });
 }
 
 const getStoreInfo = () => {
@@ -71,33 +124,21 @@ const getStoreInfo = () => {
   return require(storeFilePath);
 }
 
-const getTmpl = (pageType) => {
-  let actionTmplPath;
-  switch (pageType) {
-    case 'report':
-      actionTmplPath = scaffoldConfig.reportActionPath;
-      break;
-    case 'form':
-      actionTmplPath = scaffoldConfig.formActionPath;
-      break;
-  }
-  return fse.readFileSync(wrapCurrPath(actionTmplPath), 'utf-8');
-}
-
 const createPage = async (pageName) => {
   let {pageType, alias} = await inquirer.prompt(createPageQues);
   try {
     let storeInfo = getStoreInfo();
-    let actionTmpl = getTmpl(pageType);
     genAction({
-      tmpl: actionTmpl,
+      pageType,
       pageName,
       alias,
       storeInfo
     });
-    saveMenuData({
-      alias,
+    genPage({
+      pageType,
       pageName,
+      alias,
+      storeInfo
     });
   } catch(e) {
     console.log(e + '')

@@ -1,7 +1,7 @@
 /**
  * Author: alex
- * CreateDate: Mon Aug 13 2018 19:15:20
- * PageName: xtgg
+ * CreateDate: Mon Aug 13 2018 19:27:16
+ * PageName: xtgg-1
  * Alias: 系统公告
  */
 
@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 import {ActionReportBasic} from '../actions-basic';
 
-export class ActionReportXtgg extends ActionReportBasic {
+export class ActionReportXtgg1 extends ActionReportBasic {
   constructor(props) {
     super(props);
     this.state = Object.assign({}, this.state, {

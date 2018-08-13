@@ -1,11 +1,16 @@
-{%comment%}
+/**
+ * Author: alex
+ * CreateDate: Mon Aug 13 2018 17:34:36
+ * PageName: xtgg
+ * Alias: 系统公告
+ */
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import {ActionReportBasic} from '../actions-basic';
 
-export class ActionReport{%pageName%} extends ActionReportBasic {
+export class ActionReportXtgg extends ActionReportBasic {
   constructor(props) {
     super(props);
     this.state = Object.assign({}, this.state, {

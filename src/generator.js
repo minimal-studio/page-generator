@@ -24,4 +24,3 @@ program
   .action(createPage)
 
 program.parse(process.argv);
-console.log(program.report)

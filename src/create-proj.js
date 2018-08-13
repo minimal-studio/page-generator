@@ -9,6 +9,8 @@ const { exec } = require('child_process');
 process.env.NODE_ENV = 'development';
 
 const {commandConfig} = require('../config');
+const {createProjectQues} = require('./question');
+
 const log = console.log;
 
 function genProjFromGit(targetName) {
@@ -36,21 +38,9 @@ function storeInfo(state) {
 }
 
 async function createProject() {
-  let question = [
-    {
-      type: 'input',
-      name: 'projName',
-      message: "Project's name 项目名称"
-    },
-    {
-      type: 'input',
-      name: 'developer',
-      message: "Developer's name 开发者名字"
-    }
-  ];
-  let answer = await inquirer.prompt(question);
+  let answer = await inquirer.prompt(createProjectQues);
   genProjFromGit(answer.projName);
   storeInfo(answer);
 }
 
-module.exports = createProject;
+module.exports.default = createProject;

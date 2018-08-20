@@ -13,11 +13,14 @@ const {createProjectQues} = require('./question');
 
 const log = console.log;
 
-function genProjFromGit(targetName) {
+async function genProjFromGit(targetName, answer) {
   fs.readdir(targetName, (err) => {
     if(err) {
       exec(`git clone ${commandConfig.targetProjectGitUrl} ${targetName}`, (err, msg) => {
         if(err) return log(err);
+
+        storeInfo(answer);
+
         exec(`cd ./${targetName}; rm -Rf ./.git;`, (err, msg) => {
           if(err) return log(err);
         });
@@ -31,16 +34,15 @@ function genProjFromGit(targetName) {
 function storeInfo(state) {
   const {projName} = state;
   let writePath = path.resolve(__dirname, '../', projName, commandConfig.storeFileName);
-  let str = `
-    module.exports = ${JSON.stringify(state)};
-  `;
-  fs.writeFile(writePath, str, (err) => console.log(err || 'stored info'));
+  let str = `module.exports = ${JSON.stringify(state)};`;
+  fs.writeFile(writePath, str, (err) => {
+    if(err) console.log(err, 123123123)
+  });
 }
 
 async function createProject() {
   let answer = await inquirer.prompt(createProjectQues);
-  genProjFromGit(answer.projName);
-  storeInfo(answer);
+  genProjFromGit(answer.projName, answer);
 }
 
 module.exports = createProject;

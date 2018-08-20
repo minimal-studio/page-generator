@@ -33,7 +33,7 @@ async function genProjFromGit(targetName, answer) {
 
 function storeInfo(state) {
   const {projName} = state;
-  let writePath = path.resolve(__dirname, '../', projName, commandConfig.storeFileName);
+  let writePath = path.join(process.cwd(), projName, commandConfig.storeFileName);
   let str = `module.exports = ${JSON.stringify(state)};`;
   fs.writeFile(writePath, str, (err) => {
     if(err) console.log(err, 123123123)

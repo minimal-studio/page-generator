@@ -16,9 +16,18 @@ program
   .action(createProject);
 
 program
+  .command('addp <pageName> <alias>')
+  .option('-r, --report', 'Create report page')
+  .option('-f, --form', 'Create form page')
+  .action((pageName, alias) => {
+    let pageType = program.report ? 'report' : 'form';
+    createPage(pageName, alias, pageType);
+  });
+
+program
   .option('-r, --report', 'Create report page')
   .option('-f, --form', 'Create form page')
   .command('add <pageName>')
-  .action(createPage)
+  .action(createPage);
 
 program.parse(process.argv);

@@ -124,8 +124,12 @@ const getStoreInfo = () => {
   return require(storeFilePath);
 }
 
-const createPage = async (pageName) => {
-  let {pageType, alias} = await inquirer.prompt(createPageQues);
+const createPage = async (pageName, alias, pageType) => {
+  if(!alias) {
+    let answer = await inquirer.prompt(createPageQues);
+    pageType = answer.pageType;
+    alias = answer.alias;
+  }
   try {
     let storeInfo = getStoreInfo();
     genAction({

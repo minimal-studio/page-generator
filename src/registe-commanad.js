@@ -1,17 +1,15 @@
 const program = require('commander');
-const csv = require('csv');
-const fs = require('fs');
 const fse = require('fs-extra');
-const inquirer = require('inquirer');
-const chalk = require('chalk');
-const { exec } = require('child_process');
+const path = require('path');
 
 const createProject = require('./create-proj');
 const createPage = require('./create-page');
 
+const packageData = fse.readFileSync(path.resolve(__dirname, '../package.json'), 'utf8');
+const { version } = JSON.parse(packageData);
+
 program
-  .version('0.1.0', '-v, --version')
-  // .option('-r, --report [list]', 'List of customers in CSV');
+  .version(version, '-v, --version')
 
 program
   .command('init')

@@ -21,12 +21,11 @@ function genProjFromGit(targetProjectGitUrl, targetName, init = true) {
         if(err) return log(chalk.red(err));
 
         log(chalk.cyan('Clone 完成, 项目初始化中...'));
-        // exec(`cd ./${targetName}; rm -Rf ./.git; ${init ? 'npm run init' : ''}`, (err, msg) => {
-        //   if(err) return log(chalk.red(err));
-        //   log(chalk.cyan('Done.'));
-        //   resolve(null);
-        // });
-        resolve(null);
+        exec(`cd ./${targetName}; rm -Rf ./.git; ${init ? 'npm run init' : ''}`, (err, msg) => {
+          if(err) return log(chalk.red(err));
+          log(chalk.cyan('Done.'));
+          resolve(null);
+        });
       });
     } else {
       let err = 'project already exist';

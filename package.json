@@ -1,13 +1,13 @@
 {
-  "name": "orion-cli",
-  "version": "1.2.0",
+  "name": "uke-cli",
+  "version": "0.10.0",
   "description": "",
   "main": "index.js",
   "bin": {
-    "o-a": "./src/for-admin-web/index.js",
-    "orion-admin": "./src/for-admin-web/index.js",
-    "o-s": "./src/for-web-server/index.js",
-    "orion-server": "./src/for-web-server/index.js"
+    "uka": "./src/for-admin-web/index.js",
+    "uke-admin": "./src/for-admin-web/index.js",
+    "uks": "./src/for-web-server/index.js",
+    "uke-server": "./src/for-web-server/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

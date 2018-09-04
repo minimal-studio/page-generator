@@ -24,8 +24,8 @@ function mkdir(dirname) {
 }
 
 module.exports = {
-  targetProjectGitUrl: 'https://github.com/SANGET/orion-web-server.git',
-  storeFileName: '_orion-data.js',
+  targetProjectGitUrl: 'https://github.com/SANGET/uke-web-server.git',
+  storeFileName: '_uke-data.js',
   scaffoldConfig,
   mkdir
 }

@@ -1,10 +1,6 @@
 const fs = require('fs');
 const dateFormat = require('dateformat');
 
-let commandConfig = {
-  targetProjectGitUrl: 'https://github.com/SANGET/orion-admin-seed.git',
-  storeFileName: '_orion-data.js',
-}
 let scaffoldConfig = {
   tmplPath: {
     report: {
@@ -42,6 +38,9 @@ function mkdir(dirname) {
   });
 }
 
-module.exports.scaffoldConfig = scaffoldConfig;
-module.exports.commandConfig = commandConfig;
-module.exports.mkdir = mkdir;
+module.exports = {
+  targetProjectGitUrl: 'https://github.com/SANGET/orion-admin-seed.git',
+  storeFileName: '_orion-data.js',
+  scaffoldConfig,
+  mkdir
+}

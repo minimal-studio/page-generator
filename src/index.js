@@ -1,3 +1,2 @@
-let generator = require('./registe-commanad');
-
-module.exports = generator;
+require('./for-admin-web');
+require('./for-web-server');

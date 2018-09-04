@@ -6,8 +6,8 @@ const inquirer = require('inquirer');
 const chalk = require('chalk');
 const { exec } = require('child_process');
 
-const {commandConfig, scaffoldConfig} = require('../config');
-const {createPageQues} = require('./question');
+const { storeFileName, scaffoldConfig } = require('./config');
+const { createPageQues } = require('../question');
 
 const wrapCurrPath = (...targetPath) => {
   return path.resolve(process.cwd(), ...targetPath);
@@ -120,7 +120,7 @@ const genPage = ({pageType, pageName, alias, ...other}) => {
 }
 
 const getStoreInfo = () => {
-  let storeFilePath = wrapCurrPath(commandConfig.storeFileName);
+  let storeFilePath = wrapCurrPath(storeFileName);
   return require(storeFilePath);
 }
 

@@ -1,19 +1,18 @@
 const program = require('commander');
-const fse = require('fs-extra');
-const path = require('path');
 
-const createProject = require('./create-proj');
+const { createProject } = require('../create-proj');
 const createPage = require('./create-page');
 
-const packageData = fse.readFileSync(path.resolve(__dirname, '../package.json'), 'utf8');
-const { version } = JSON.parse(packageData);
+const { version } = require('../common-config');
+const { createProjectQues } = require('../question');
+const { storeFileName, targetProjectGitUrl } = require('./config');
 
 program
   .version(version, '-v, --version')
 
 program
   .command('init')
-  .action(createProject);
+  .action(createProject(createProjectQues, targetProjectGitUrl, storeFileName));
 
 program
   .command('addp <pageName> <alias>')

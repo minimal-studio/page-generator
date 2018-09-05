@@ -20,7 +20,7 @@ function genProjFromGit(targetProjectGitUrl, targetName, init = true) {
       exec(`git clone ${targetProjectGitUrl} ${targetName}`, (err, msg) => {
         if(err) return log(chalk.red(err));
 
-        log(chalk.cyan('Clone 完成, 项目初始化中...'));
+        log(chalk.cyan('Clone 完成, 依赖安装中, 请稍后...'));
         exec(`cd ./${targetName}; rm -Rf ./.git; ${init ? 'npm run init' : ''}`, (err, msg) => {
           if(err) return log(chalk.red(err));
           log(chalk.cyan('Done.'));

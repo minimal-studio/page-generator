@@ -24,9 +24,10 @@ program
   });
 
 program
-  .option('-r, --report', 'Create report page')
-  .option('-f, --form', 'Create form page')
   .command('add <pageName>')
-  .action(createPage);
+  .action((pageName) => {
+    let pageType = program.report ? 'report' : 'form';
+    createPage(pageName, null, pageType);
+  });
 
 program.parse(process.argv);

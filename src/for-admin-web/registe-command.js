@@ -1,6 +1,6 @@
 const program = require('commander');
 
-const { createProject } = require('../create-proj');
+const { createProject, setProjectInfo } = require('../create-proj');
 const createPage = require('./create-page');
 
 const { version } = require('../common-config');
@@ -13,6 +13,12 @@ program
 program
   .command('init')
   .action(createProject(createProjectQues, targetProjectGitUrl, storeFileName));
+
+program
+  .command('setUser <developer>')
+  .action((developer) => {
+    setProjectInfo({developer}, storeFileName);
+  });
 
 program
   .command('addp <pageName> <alias>')

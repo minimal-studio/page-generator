@@ -1,13 +1,13 @@
 {
   "name": "uke-cli",
-  "version": "0.10.2",
+  "version": "0.11.0",
   "description": "",
   "main": "index.js",
   "bin": {
-    "uka": "./src/for-admin-web/index.js",
-    "uke-admin": "./src/for-admin-web/index.js",
-    "uks": "./src/for-web-server/index.js",
-    "uke-server": "./src/for-web-server/index.js"
+    "uka": "./bin/uke-admin.js",
+    "uke-admin": "./bin/uke-admin.js",
+    "uks": "./bin/uke-server.js",
+    "uke-server": "./bin/uke-server.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -33,12 +33,12 @@ const TemplateEngine = (tmpl, data) => {
   return tmpl;
 }
 
-const registeActionRef = (pageName) => {
-  let filePath = wrapCurrPath(scaffoldConfig.actionRefPath);
-  let actionRefFile = fs.readFileSync(filePath, 'utf8');
-  actionRefFile += `export * from './${pageName}';\n`;
-  fs.writeFileSync(filePath, actionRefFile);
-}
+// const registeActionRef = (pageName) => {
+//   let filePath = wrapCurrPath(scaffoldConfig.actionRefPath);
+//   let actionRefFile = fs.readFileSync(filePath, 'utf8');
+//   actionRefFile += `export * from './${pageName}';\n`;
+//   fs.writeFileSync(filePath, actionRefFile);
+// }
 
 const registePageRef = (pageName) => {
   let filePath = wrapCurrPath(scaffoldConfig.pageRefPath);
@@ -87,18 +87,18 @@ const genFile = ({targetFilePath, pageName, content, storeInfo, alias}) => {
   };
 }
 
-const genAction = ({pageType, pageName, ...other}) => {
-  let actionTmpl = getTmpl(pageType, 'action');
+// const genAction = ({pageType, pageName, ...other}) => {
+//   let actionTmpl = getTmpl(pageType, 'action');
 
-  genFile({
-    targetFilePath: scaffoldConfig.actionPath, 
-    pageName, 
-    content: actionTmpl,
-    ...other
-  });
+//   genFile({
+//     targetFilePath: scaffoldConfig.actionPath, 
+//     pageName, 
+//     content: actionTmpl,
+//     ...other
+//   });
 
-  registeActionRef(pageName);
-}
+//   registeActionRef(pageName);
+// }
 
 const genPage = ({pageType, pageName, alias, ...other}) => {
   let pageTmpl = getTmpl(pageType, 'page');
@@ -132,12 +132,12 @@ const createPage = async (pageName, alias, pageType) => {
   }
   try {
     let storeInfo = getStoreInfo();
-    genAction({
-      pageType,
-      pageName,
-      alias,
-      storeInfo
-    });
+    // genAction({
+    //   pageType,
+    //   pageName,
+    //   alias,
+    //   storeInfo
+    // });
     genPage({
       pageType,
       pageName,

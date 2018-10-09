@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "airbnb",
+    "eslint:recommended"
+  ],
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    "indent": ["error", 2],
+    "semi": ["error", "always"],
+    "no-unused-vars": [
+      1,
+      {
+        "vars": "all", "args": "after-used", "ignoreRestSiblings": false
+      }
+    ],
+    "import/prefer-default-export": 0,
+    "no-console": 0
+  }
+ }

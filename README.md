@@ -69,6 +69,12 @@ uka add xtgg
 
 会自动创建 xtgg.js，并且添加到菜单中，菜单可以自行调整位置
 
+## 项目根目录手动创建 _uke-data.js
+
+```js
+module.exports = {"projName":"Admin","developer":"Dev"};
+```
+
 ### 构建 uke-web-server
 
 TODO

@@ -30,3 +30,5 @@ yarn.lock
 public/posts/
 public/images/
 version.js
+
+src

@@ -37,9 +37,11 @@ uka create
 
 根据提示依次输入
 
-- 页面代号 PageCode: 将会在页面存储位置新建 PageCode/index.tsx
+- 存放目录 StoreDir: 存放的目录，在配置的 `pagePath` 目录之下
+- 文件名 PageName: 创建的文件名 StoreDir/PageName.tsx
 - 页面类型 PageType: 选择 report or form，获取 tmpl 路径并写入项目
-- 页面中文名 PageCNName: 页面的中文名，方便后续查找
+- 是否在 index 中引用: 是否写入 index 文件，默认为 false
+- 页面中文名 PageCNName: 页面的中文名，方便后续查找，可以忽略
 
 ## 配置
 

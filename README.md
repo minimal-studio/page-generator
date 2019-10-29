@@ -1,38 +1,35 @@
-# uke cli
+# @mini-code/page-generator
 
-管理系统的帮助工具，可以快速搭建、生成、开发基于 uke admin 模版的管理后台以及 web server
+管理系统页面生成工具。
 
 ## 使用
 
-安装 uke cli
-
 ```shell
-yarn add uke-cli -D
+yarn add @mini-code/page-generator -D
 # or
-npm i uke-cli --save-dev
+npm i @mini-code/page-generator --save-dev
 ```
 
 在项目根目录的 `package.json` 添加 scripts
 
 ```json
 "scripts": {
-  "gen:page": "uka create"
+  "gen:page": "pg create"
 }
 ```
 
 ## Command
 
-- uka 为 uke-admin 的缩写
+- pg 为 page-generator 的缩写
 
 ```shell
-uka -v
-uke-admin -v
+pg -v
 ```
 
 ### 新建页面
 
 ```js
-uka create
+pg create
 ```
 
 根据提示依次输入
@@ -45,7 +42,7 @@ uka create
 
 ## 配置
 
-在项目根目录创建 `.uke-generator-config.js` 文件，以下为默认配置：
+在项目根目录创建 `.page-generator-config.js` 文件，以下为默认配置：
 
 ```js
 const dateFormat = require('dateformat');

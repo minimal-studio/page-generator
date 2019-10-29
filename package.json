@@ -1,13 +1,16 @@
 {
-  "name": "uke-cli",
-  "version": "1.0.0-rc4",
+  "name": "@mini-code/page-generator",
+  "version": "1.0.0-alpha0",
   "description": "",
   "main": "index.js",
   "bin": {
-    "uka": "./bin/uke-admin.js",
-    "uke-admin": "./bin/uke-admin.js",
-    "uks": "./bin/uke-server.js",
-    "uke-server": "./bin/uke-server.js"
+    "pg": "./bin/admin.js",
+    "page-gen": "./bin/admin.js",
+    "uka": "./bin/admin.js",
+    "uke-admin": "./bin/admin.js"
+  },
+  "scripts": {
+    "release": "npm publish --access public"
   },
   "dependencies": {
     "chalk": "^1.1.3",
